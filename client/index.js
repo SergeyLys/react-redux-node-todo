@@ -6,7 +6,9 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 import { routes } from './routes';
-import {Router, browserHistory} from 'react-router';
+// import {Router, browserHistory} from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+// import configRoutes from './routes';
 
 
 const store = createStore(
@@ -19,7 +21,10 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
+        <BrowserRouter>
+            {/*{configRoutes(store)}*/}
+            {routes}
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );

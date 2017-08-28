@@ -21,6 +21,8 @@ export const signin = async (req, res, next) => {
     const {login, password} = req.body;
     const user = await User.findOne({login});
 
+    console.log(process.env);
+
     if (!user) {
         return next({
             status: 401,

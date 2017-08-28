@@ -17,47 +17,50 @@ import taskRouter from './routes/task';
 import authRouter from './routes/auth';
 
 import errorHandler from './middlewares/errorHandler';
+import checkToken from './middlewares/checkToken';
 
 const app = express();
 const compiler = webpack(webpackConfig);
 
-
 mongoose.Promise = bluebird;
 mongoose.connect(config.database, err => {
-    if (err) {
-        throw err
-    }
+	if (err) {
+		throw err;
+	}
 
-    console.log('mongo connected');
+	console.log('mongo connected');
 });
 
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: config.secret
-}));
-
-app.use(cors({origin: '*'}));
-app.use('/api', taskRouter);
-app.use('/api', authRouter);
-
-app.use(webpackMiddleware(compiler, {
-    hot: true,
-    publicPath: webpackConfig.output.publicPath,
-    noInfo: true
-}));
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
+app.use(
+	session({
+		resave: true,
+		saveUninitialized: true,
+		secret: config.secret,
+	})
+);
+app.use(cors({ origin: '*' }));
+app.use('/api', checkToken, authRouter);
+app.use('/api', checkToken, taskRouter);
+app.use(
+	webpackMiddleware(compiler, {
+		hot: true,
+		publicPath: webpackConfig.output.publicPath,
+		noInfo: true,
+	})
+);
 app.use(webpackHotMiddleware(compiler));
 
 app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+	res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.listen(config.port, ()=> console.log(`Server is up and running on port ${config.port}`));
+app.listen(config.port, () => console.log(`Server is up and running on port ${config.port}`));
 
 app.use(errorHandler);

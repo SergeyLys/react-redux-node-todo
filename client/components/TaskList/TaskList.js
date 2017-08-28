@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskFormContainer from '../TaskForm/TaskFormContainer';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
 export default class TaskList extends React.Component {
@@ -10,7 +10,7 @@ export default class TaskList extends React.Component {
             return (
                     <li key={index} className={classnames("task-item-row", {'finished': item.complete})}>
                         <p>
-                            <Link to={`/${item._id}`}><span>{index+1}</span> {item.title} </Link>
+                            <Link to={`/tasks/${item._id}`}><span>{index+1}</span> {item.title} </Link>
                             <input type="checkbox" checked={item.complete} onChange={this.props.statusHandler.bind(null, item)}/>
                             <span className="remove-btn" onClick={this.props.removeHandler.bind(null, item)}>X</span>
                         </p>
