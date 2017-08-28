@@ -1,6 +1,6 @@
 const config = {
     database: 'mongodb://localhost/todo',
-    port: 3000,
+    port: 4000,
     secret: 'secret'
 };
 
