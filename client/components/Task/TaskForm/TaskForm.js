@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import validateInput from '../../common/validateInput';
+import validateInput from '../../../common/validateInput';
 
 export default class TaskForm extends React.Component {
     constructor() {

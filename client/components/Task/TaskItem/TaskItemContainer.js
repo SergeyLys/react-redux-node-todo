@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 import {connect} from 'react-redux';
-import { taskItemRequest } from '../../actions/tasksRequest';
+import { taskItemRequest } from '../../../actions/tasksRequest';
 
 class TaskItemContainer extends React.Component {
     componentDidMount() {

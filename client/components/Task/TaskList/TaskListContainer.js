@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { taskListRequest, removeTask, taskChangeRequest } from '../../actions/tasksRequest';
+import { taskListRequest, removeTask, taskChangeRequest } from '../../../actions/tasksRequest';
 import TaskList from './TaskList';
+import { Switch, Route } from 'react-router-dom';
 
 class TaskListContainer extends React.Component {
     componentDidMount() {

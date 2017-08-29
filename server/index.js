@@ -46,8 +46,8 @@ app.use(
 	})
 );
 app.use(cors({ origin: '*' }));
-app.use('/api', checkToken, authRouter);
-app.use('/api', checkToken, taskRouter);
+app.use('/api', /*checkToken,*/ authRouter);
+app.use('/api', /*checkToken,*/ taskRouter);
 app.use(
 	webpackMiddleware(compiler, {
 		hot: true,
