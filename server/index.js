@@ -15,6 +15,7 @@ import webpackConfig from '../webpack.config';
 import config from './config/index';
 import taskRouter from './routes/task';
 import authRouter from './routes/auth';
+import userRouter from './routes/user';
 
 import errorHandler from './middlewares/errorHandler';
 import checkToken from './middlewares/checkToken';
@@ -46,8 +47,9 @@ app.use(
 	})
 );
 app.use(cors({ origin: '*' }));
-app.use('/api', /*checkToken,*/ authRouter);
-app.use('/api', /*checkToken,*/ taskRouter);
+app.use('/api', checkToken, authRouter);
+app.use('/api', checkToken, userRouter);
+app.use('/api', checkToken, taskRouter);
 app.use(
 	webpackMiddleware(compiler, {
 		hot: true,

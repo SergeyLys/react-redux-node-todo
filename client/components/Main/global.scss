@@ -1,3 +1,6 @@
+//@import "~foundation-sites/assets/foundation";
+//@include foundation-everything($flex: true);
+
 #root {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,7 @@
-import "./foundation-sites/scss/foundation.scss";
-import "./foundation-sites/scss/settings/_settings.scss";
+// import "./foundation-sites/scss/foundation.scss";
+// import "./foundation-sites/scss/settings/_settings.scss";
+import 'semantic-ui-css/semantic.min.css';
+// import 'foundation-sites/assets/foundation.scss';
 import './global.scss';
 
 import SignupContainer from '../Forms/signup/SignupContainer';
@@ -11,30 +13,29 @@ import { Switch, Route } from 'react-router-dom';
 
 import React from 'react';
 
-const Main = () => (
+const Main = ({currentUser}) => (
     <div className="site-wrapper">
 
         <main className="site-main">
-            <div className="row align-center">
 
-                <div className="small-12 medium-9 columns">
+                <div className="ui container">
 
-                    <Switch>
-                        <Route exact path='/' component={TaskListContainer} />
-                        <Route path='/tasks/:id' component={TaskItemContainer} />
-                        <Route path='*' component={Error}/>
-                    </Switch>
-
-                    {/*<Switch>*/}
-                        {/*<Route exact path="/" component={Task}/>*/}
-                        {/*<Route path='/signin' component={SigninContainer}/>*/}
-                        {/*<Route path='/signup' component={SignupContainer}/>*/}
-                        {/*<Route path='*' component={Error}/>*/}
-                    {/*</Switch>*/}
+                    {
+                        currentUser != ''
+                            ? <Switch>
+                            <Route exact path='/' component={TaskListContainer} />
+                            <Route path='/tasks/:id' component={TaskItemContainer} />
+                            <Route path='*' component={Error}/>
+                        </Switch>
+                            : <Switch>
+                            <Route exact path='/' component={SigninContainer} />
+                            <Route path='/signin' component={SigninContainer}/>
+                            <Route path='/signup' component={SignupContainer}/>
+                            <Route path='*' component={Error}/>
+                        </Switch>
+                    }
 
                 </div>
-
-            </div>
         </main>
 
     </div>
