@@ -5,9 +5,13 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
-import { routes } from './routes';
-import {Router, browserHistory} from 'react-router';
+import MainContainer from './components/Main/MainContainer';
+import Main from './components/Main/Main';
+import { BrowserRouter } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
+const history = createBrowserHistory();
 
 const store = createStore(
     rootReducer,
@@ -19,7 +23,9 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
+        <BrowserRouter>
+            <MainContainer/>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root')
 );

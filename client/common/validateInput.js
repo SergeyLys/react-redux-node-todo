@@ -4,17 +4,21 @@ import _isEmpty from 'lodash/isEmpty';
 export default function validateInput(data) {
     let errors = {};
 
-    if (Validator.isEmpty(data.title)) {
+    if (typeof data.title != 'undefined' && Validator.isEmpty(data.title)) {
         errors.title = 'This is required field'
     }
 
-    if (Validator.isEmpty(data.body)) {
+    if (typeof data.body != 'undefined' && Validator.isEmpty(data.body)) {
         errors.body = 'This is required field'
     }
 
-    // if (Validator.isEmpty(data.location)) {
-    //     errors.location = 'Это поле необходимо заполнить'
-    // }
+    if (typeof data.password != 'undefined' && Validator.isEmpty(data.password)) {
+        errors.password = 'This is required field'
+    }
+    
+    if (typeof data.username != 'undefined' && Validator.isEmpty(data.username)) {
+        errors.username = 'This is required field'
+    }
 
     return {
         errors,

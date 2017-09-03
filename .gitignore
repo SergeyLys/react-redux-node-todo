@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 .log
 .idea
 .directory
 node_modules
+=======
+.log
+.idea
+.directory
+node_modules
+>>>>>>> b64fd45178c62fb552cb9f2641c2a9c9f7bff126
