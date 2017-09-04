@@ -27,7 +27,8 @@ export default class SigninForm extends React.Component {
                             break;
                         }
                         case 401: {
-                            this.setState({errors: {login: error.response.data.message}});
+                            console.log(error.response);
+                            this.setState({errors: {username: error.response.data.message}});
                             break;
                         }
                         default: this.setState({errors: {}});
