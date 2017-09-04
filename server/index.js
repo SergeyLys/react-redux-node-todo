@@ -19,6 +19,7 @@ import userRouter from './routes/user';
 
 import errorHandler from './middlewares/errorHandler';
 import checkToken from './middlewares/checkToken';
+import getUser from './middlewares/getUser';
 
 const app = express();
 const compiler = webpack(webpackConfig);
@@ -48,8 +49,9 @@ app.use(
 );
 app.use(cors({ origin: '*' }));
 app.use('/api', authRouter);
-app.use('/api', checkToken, userRouter);
-app.use('/api', checkToken, taskRouter);
+app.use('/api', checkToken, getUser, userRouter);
+// app.use(checkToken, getUser);
+app.use('/api', checkToken, getUser, taskRouter);
 app.use(
 	webpackMiddleware(compiler, {
 		hot: true,

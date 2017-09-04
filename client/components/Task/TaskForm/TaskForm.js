@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
+import checkToken from '../../../common/checkToken';
 import validateInput from '../../../common/validateInput';
+import {Form, Button} from 'semantic-ui-react';
 
 export default class TaskForm extends React.Component {
     constructor() {
@@ -34,7 +36,7 @@ export default class TaskForm extends React.Component {
 
         if (this.isValid()) {
             this.setState({errors: {}});
-            this.props.createTaskRequest(this.state).then(()=> {
+            this.props.createTaskRequest(this.state, checkToken('todotoken')).then(()=> {
                 this.setState({
                     title: '',
                     body: ''
@@ -48,9 +50,9 @@ export default class TaskForm extends React.Component {
         const errors = this.state.errors;
         return(
             <div className="form-wrapper">
-                <form onSubmit={::this.onSubmit}>
+                <Form onSubmit={::this.onSubmit}>
 
-                <div className={classnames("input-row", {'has-error': errors.title})}>
+                    <Form.Field error={!!errors.title}>
                         <label>Title</label>
                         <input
                             type="text"
@@ -58,10 +60,10 @@ export default class TaskForm extends React.Component {
                             value={this.state.title}
                             onChange={::this.onChange}
                         />
-                        {errors.title ? <span className="error">{errors.title}</span> : ''}
-                    </div>
+                        {errors.title && <span style={{color: "#ae5856"}}>{errors.title}</span>}
+                    </Form.Field>
 
-                    <div className={classnames("input-row", {'has-error': errors.body})}>
+                    <Form.Field error={!!errors.body}>
                         <label>Description</label>
                         <textarea
                             type="text"
@@ -69,13 +71,13 @@ export default class TaskForm extends React.Component {
                             value={this.state.body}
                             onChange={::this.onChange}
                         />
-                        {errors.body ? <span className="error">{errors.body}</span> : ''}
-                    </div>
+                        {errors.body && <span style={{color: "#ae5856"}}>{errors.body}</span>}
+                    </Form.Field>
 
                     <div className="input-row">
-                        <button className="button">Add task</button>
+                        <Button primary className="button">Add task</Button>
                     </div>
-                </form>
+                </Form>
             </div>
         )
     }

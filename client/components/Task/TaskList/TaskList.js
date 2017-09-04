@@ -6,7 +6,7 @@ import classnames from 'classnames';
 export default class TaskList extends React.Component {
 
     render() {
-        const taskItem = !this.props.tasks.tasks.tasks ? null : this.props.tasks.tasks.tasks.map((item, index) => {
+        const taskItem = !this.props.tasks.tasks ? null : this.props.tasks.tasks.map((item, index) => {
             return (
                     <li key={index} className={classnames("task-item-row", {'finished': item.complete})}>
                         <p>

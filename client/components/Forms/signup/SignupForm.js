@@ -17,15 +17,12 @@ export default class SigninForm extends React.Component {
         if (this.isValid()) {
             this.setState({errors: {}});
             this.props.signupRequest(this.state)
-                .then((response)=> {
-                    // this.setState({data});
-                    console.log(response);
-                
+                .then(()=> {
+                    this.props.history.replace('/signin');
                 })
                 .catch(error => {
                     switch (error.response.status) {
                         case 400: {
-                            this.setState({errors: {}});
                             this.setState({errors: {username: 'This username already exist'}});
                             break;
                         }
@@ -82,7 +79,6 @@ export default class SigninForm extends React.Component {
                     {errors.password && <span style={{color: "#ae5856"}}>{errors.password}</span>}
                 </Form.Field>
                 <Button primary>Signup</Button>
-                <Link to='/signin'>Login</Link>
             </Form>
         )
     }

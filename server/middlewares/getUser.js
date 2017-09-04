@@ -1,8 +1,7 @@
 import * as UserService from '../services/userService';
 
-
-export async function getCurrentUser(req, res, next) {
-    const { token } = req;
+export default async function(req, res, next) {
+    const {token} = req;
 
     try {
         var user = await UserService.getUserByToken(token);
@@ -13,5 +12,7 @@ export async function getCurrentUser(req, res, next) {
         });
     }
 
-    return res.json(user);
+    req.user = user;
+
+    next();
 }

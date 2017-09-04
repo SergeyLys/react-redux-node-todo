@@ -5,13 +5,23 @@ export function currentUserRequest(token) {
         if (token)
             return axios.get('/api/current-user', { headers: { Authorization: token }})
                 .then((response) => {
-                    dispatch({type: 'GET_USER', payload: response.data.login});
+                    dispatch({type: 'GET_USER', payload: response.data.username});
                 });
     }
 }
 
 export function signupRequest(data) {
     return dispatch => {
-        return axios.post('/api/signup');
+        return axios.post('/api/signup', data);
     }
+}
+
+export function signinRequest(data) {
+    return dispatch => {
+        return axios.post('/api/signin', data);
+    }
+}
+
+export function signOut() {
+    return dispatch => { return dispatch({type: 'DROP_CURRENT_USER', payload: ''}) };
 }

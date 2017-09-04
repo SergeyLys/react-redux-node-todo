@@ -5,6 +5,8 @@ import config from '../config/index';
 export const signup = async (req, res, next) => {
     const credentials = req.body;
 
+    console.log(credentials);
+
     try {
         var user = await User.create(credentials);
     } catch ({message}) {
@@ -18,8 +20,8 @@ export const signup = async (req, res, next) => {
 };
 
 export const signin = async (req, res, next) => {
-    const {login, password} = req.body;
-    const user = await User.findOne({login});
+    const {username, password} = req.body;
+    const user = await User.findOne({username});
 
     if (!user) {
         return next({

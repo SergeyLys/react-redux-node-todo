@@ -1,6 +1,5 @@
 import React from 'react';
 import {Form, Button} from 'semantic-ui-react';
-import Validator from 'validator';
 import validateInput from '../../../common/validateInput'
 import {Link} from 'react-router-dom';
 
@@ -15,10 +14,25 @@ export default class SigninForm extends React.Component {
 
     onSubmit = () => {
         if (this.isValid()) {
-            this.setState({errors});
-            // this.props.createTaskRequest(this.state).then(()=> {
-            //     this.setState({data});
-            // });
+            this.setState({errors: {}});
+            this.props.signinRequest(this.state)
+                .then((response) => {
+                    document.cookie = `todotoken=${response.data}`;
+                    this.props.history.replace('/');
+                })
+                .catch(error => {
+                    switch (error.response.status) {
+                        case 400: {
+                            this.setState({errors: {password: error.response.data.message}});
+                            break;
+                        }
+                        case 401: {
+                            this.setState({errors: {login: error.response.data.message}});
+                            break;
+                        }
+                        default: this.setState({errors: {}});
+                    }
+                });
         }
     };
 
@@ -69,7 +83,6 @@ export default class SigninForm extends React.Component {
                     {errors.password && <span style={{color: "#ae5856"}}>{errors.password}</span>}
                 </Form.Field>
                 <Button primary>Login</Button>
-                <Link to='/signup'>Registration</Link>
             </Form>
         )
     }

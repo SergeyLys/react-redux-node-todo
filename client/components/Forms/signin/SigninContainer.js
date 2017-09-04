@@ -1,15 +1,28 @@
 import React from 'react';
 import SigninForm from './SigninForm';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import checkToken from '../../../common/checkToken';
+import { signinRequest, currentUserRequest } from '../../../actions/authActions';
 
-export default class SigninContainer extends React.Component {
+class SigninContainer extends React.Component {
 
-    submit = (data) => {
-        console.log(data);
-    };
+    componentWillUnmount() {
+        if (checkToken('todotoken') != '')
+            this.props.currentUserRequest(checkToken('todotoken'));
+    }
 
     render() {
         return (
-            <SigninForm submit={this.submit}/>
+            <div className="authorization-wrapper">
+                <h1>Please login or <Link to='/signup'>register</Link></h1>
+                <SigninForm history={this.props.history} signinRequest={this.props.signinRequest}/>
+            </div>
         )
     }
 }
+
+export default connect(null, {
+    signinRequest,
+    currentUserRequest
+})(SigninContainer);

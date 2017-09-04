@@ -6,7 +6,7 @@ import { createTaskRequest } from '../../../actions/tasksRequest';
 class TaskFormContainer extends React.Component {
     render() {
         return(
-            <TaskForm createTaskRequest={this.props.createTaskRequest}/>
+            <TaskForm className="task-form" createTaskRequest={this.props.createTaskRequest}/>
         )
     }
 }

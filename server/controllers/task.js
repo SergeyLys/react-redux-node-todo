@@ -2,6 +2,9 @@ import Task from '../models/task';
 
 export async function create(req, res, next) {
     const taskData = req.body;
+    const userId = req.user._id;
+
+    taskData.userId = userId;
 
     try {
         var task = await Task.create(taskData);
@@ -16,8 +19,10 @@ export async function create(req, res, next) {
 }
 
 export async function getAll(req, res, next) {
+    const {_id} = req.user;
+
     try {
-        var tasks = await Task.find({});
+        var tasks = await Task.find({userId: _id});
     } catch ({message}) {
         return next({
             status: 500,
